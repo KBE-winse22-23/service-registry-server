@@ -1,0 +1,29 @@
+version: "1.0"
+
+services:
+  app:
+    container_name: service-registry
+    command: java -jar target/Service-Registry-Server-for-Online-Shop-Microservices-0.0.1-SNAPSHOT.jar
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/app
+    networks:
+      - internal
+
+
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - internal
+
+
+networks:
+  internal:
+    name: internal
